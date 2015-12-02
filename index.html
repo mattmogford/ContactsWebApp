@@ -2,8 +2,8 @@
 <html>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<!-- <link rel="stylesheet" href="./lib/bootstrap.min.css">
-<script src="./lib/angular.min.js"></script> -->
+<!--<link rel="stylesheet" href="./lib/bootstrap.min.css">
+<script src="./lib/angular.min.js"></script>-->
 
 <body ng-app="myApp" ng-controller="mainController">
 
@@ -11,11 +11,11 @@
 
     <h3>Contacts</h3>
 
-    <button class="btn btn-success" ng-click="editContact('new')" ng-hide="!hideform">
+    <button class="btn btn-success" ng-click="createContact()" ng-hide="!hideform">
       <span class="glyphicon glyphicon-user"></span> Add New Contact
     </button>
 
-    <button class="btn btn-danger" ng-click="cancelEdit()" ng-hide="hideform">
+    <button class="btn btn-warning" ng-click="cancelEdit()" ng-hide="hideform">
       <span class="glyphicon glyphicon-arrow-left"></span> Cancel
     </button>
 
@@ -41,10 +41,44 @@
           <input type="text" ng-model="nickname" placeholder="Nickname">
         </div>
       </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Telephone:</label>
+        <div class="col-sm-10">
+          <input type="text" ng-model="telephone" placeholder="Telephone">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Email:</label>
+        <div class="col-sm-10">
+          <input type="text" ng-model="email" placeholder="Email">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Website:</label>
+        <div class="col-sm-10">
+          <input type="text" ng-model="website" placeholder="Website">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Notes:</label>
+        <div class="col-sm-10">
+          <input type="text" ng-model="notes" placeholder="Notes">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Location:</label>
+        <div class="col-sm-10">
+          <input type="text" ng-model="location" placeholder="Location">
+        </div>
+      </div>
 
       <hr>
 
-      <button class="btn btn-success" ng-disabled="error || incomplete" ng-click="saveContact">
+      <button class="btn btn-danger" ng-hide="!selectedContact" ng-click="deleteSelectedContact()">
+        <span class="glyphicon glyphicon-trash"></span> Delete Contact
+      </button>
+        
+      <button class="btn btn-success" ng-disabled="error || incomplete" ng-click="saveContact()">
         <span class="glyphicon glyphicon-save"></span> Save Changes
       </button>
     </form>
@@ -57,7 +91,7 @@
         <th>Telephone</th>
         <!-- <th>Edit</th> -->
       </tr></thead>
-      <tbody><tr ng-repeat="contact in contacts" ng-click="editContact( contact.id )">
+      <tbody><tr ng-repeat="contact in contacts" ng-click="viewContact( contact )">
           <td>
             <img src="./img/{{ contact.photo || defaultPhoto }}.jpg"
                  style="height: 9vh"
@@ -67,11 +101,6 @@
           <td>{{ contact.firstname }}</td>
           <td>{{ contact.lastname }}</td>
           <td>{{ contact.telephone }}</td>
-        <!-- <td>
-          <button class="btn" ng-click="editContact(contact.id)">
-            <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit
-          </button>
-        </td> -->
       </tr></tbody>
     </table>
 
